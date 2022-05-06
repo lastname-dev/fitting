@@ -34,6 +34,10 @@ const userSchema = mongoose.Schema({
         type: Array,
         default: [],
     },
+    images: {
+        type: Array,
+        default: [],
+    },
     image: String,
     token: {
         type: String,

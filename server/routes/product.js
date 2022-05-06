@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const { Product } = require("../models/Product");
+const { User } = require("../models/User");
+
 //=================================
 //             product
 //=================================
@@ -28,6 +30,10 @@ router.post("/image", (req, res) => {
             fileName: res.req.file.filename,
         });
     });
+});
+router.post("/hi", (req, res) => {
+    const user = User;
+    user.update({ email: req.body.email }, { $set: { name: "dadssadas" } });
 });
 
 router.post("/", (req, res) => {
@@ -81,14 +87,19 @@ router.post("/products", (req, res) => {
 
 router.get("/products_by_id", (req, res) => {
     let type = req.query.type;
-    let productId = req.query.id;
+    let productIds = req.query.id;
 
-    Product.find({ _id: productId })
+    if (type === "array") {
+        let ids = req.query.id.split(",");
+        productIds = ids.map((item) => {
+            return item;
+        });
+    }
+    Product.find({ _id: { $in: productIds } })
         .populate("writer")
         .exec((err, product) => {
             if (err) return res.status(400).send(err);
-            return res.status(200).send({ success: true, product });
+            return res.status(200).send(product);
         });
 });
-
 module.exports = router;
