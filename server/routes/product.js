@@ -31,11 +31,13 @@ router.post("/image", (req, res) => {
         });
     });
 });
-router.post("/hi", (req, res) => {
-    const user = User;
-    user.update({ email: req.body.email }, { $set: { name: "dadssadas" } });
-});
+router.post("/hi", async (req, res) => {
+    const user = await User.findById(req.body.id);
 
+    user.images = req.body.images;
+
+    await user.save();
+});
 router.post("/", (req, res) => {
     const product = new Product(req.body);
     product.save((err) => {

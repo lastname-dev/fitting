@@ -12,6 +12,7 @@ function MyPage(props) {
         const body = {
             images: Images,
             email: props.user.userData.email,
+            id: props.user.userData._id,
         };
         axios.post("/api/product/hi", body).then((response) => {
             if (response.data.success) {
@@ -22,22 +23,21 @@ function MyPage(props) {
             }
         });
     };
-    useEffect(() => {
-        axios.get("/api/product/").then((response) => {
-            if (response.data.success) {
-                props.history.push("/");
-            } else {
-                alert("Failed to enter mypage");
-            }
-        });
-    }, []);
-
+    // useEffect(() => {
+    //     axios.get("/api/product/").then((response) => {
+    //         if (response.data.success) {
+    //             props.history.push("/");
+    //         } else {
+    //             alert("Failed to enter mypage");
+    //         }
+    //     });
+    // }, []);
     return (
         <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
             <div style={{ textAlign: "center", marginBottom: "2rem" }}>
                 <h2>Mypage</h2>
             </div>
-            <Form on onSubmit={submitHandler}>
+            <Form onSubmit={submitHandler}>
                 <ProfileUpload refreshFunction={updateImages} />
                 <br />
                 <br />

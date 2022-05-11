@@ -54,6 +54,11 @@ function App() {
                         path="/mypage"
                         component={Auth(MyPage, true)}
                     />
+                    <Route
+                        exact
+                        path="/draw"
+                        component={Auth(DrawPage, true)}
+                    />
                 </Switch>
             </div>
             <Footer />

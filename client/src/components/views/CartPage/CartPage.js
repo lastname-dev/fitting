@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCartItems, removeCartItem } from "../../../_actions/user_actions";
 import UserCardBlock from "./Sections/UserCardBlock";
+import userImage from "./Sections/UserImage";
 import { Empty } from "antd";
 function CartPage(props) {
     const dispatch = useDispatch();
@@ -43,10 +44,22 @@ function CartPage(props) {
         });
     };
     return (
-        <div style={{ width: "75%", margin: "2rem auto" }}>
+        <div style={{ width: "75%", margin: "0 auto" }}>
             <h2 style={{ textAlign: "center", whiteSpace: "pre" }}>My Cart</h2>
-            <div>
+
+            <div style={{ position: "relative" }}>
+                <img
+                    style={{
+                        width: "500px",
+                        height: "600px",
+                        position: "absolute",
+                        marginTop: "50px",
+                        paddingRight: "50px",
+                    }}
+                    src={`http://localhost:4000/${props.user.userData?.images}`}
+                />
                 <UserCardBlock
+                    style={{ position: "absolute" }}
                     products={props.user.cartDetail}
                     removeItem={removeFromCart}
                 />
